@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mission Control</title>
+<meta name="description" content="Crew operations tracker for a small team of assistant bots.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#020408">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23020408'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%2300c8ff' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23a0ff60'/%3E%3C/svg%3E">
+</head>
+<body>
+<canvas id="sky" aria-hidden="true"></canvas>
+<div class="nebula" aria-hidden="true"></div>
+<div class="scan" aria-hidden="true"></div>
+
+<div id="app">
+  <header class="hdr">
+    <div class="brand">
+      <div class="emblem" aria-hidden="true">
+        <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" class="e1"/><ellipse cx="20" cy="20" rx="17" ry="6.5" class="e2" transform="rotate(-28 20 20)"/><circle cx="20" cy="20" r="4.2" class="e3"/><circle cx="34.6" cy="12.4" r="2" class="e4"/></svg>
+      </div>
+      <div>
+        <h1 class="title" id="t-name">MISSION CONTROL</h1>
+        <div class="subtitle"><span id="t-sub">Crew operations tracker</span> <span class="sep">//</span> <span class="ver">V1</span> <span class="sep">//</span> <span class="by">by Tapwise</span></div>
+      </div>
+    </div>
+    <div class="hdr-right">
+      <nav class="tabs" role="tablist" aria-label="View">
+        <button role="tab" data-view="ops" aria-selected="true">Operations <kbd>1</kbd></button>
+        <button role="tab" data-view="org" aria-selected="false">Org chart <kbd>2</kbd></button>
+      </nav>
+      <div class="feed" id="feed">
+        <span class="fdot"></span>
+        <div>
+          <div class="hlbl">Status feed <span class="badge-slot" data-panel="feed"></span></div>
+          <div class="fval" id="feed-val">Loading status.json</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="metrics" aria-label="Key metrics">
+    <div class="cell c-met">
+      <div class="clbl"><span>Mission elapsed time</span><span class="badge-slot" data-panel="met"></span></div>
+      <div class="cval amber" id="m-met">T+ --d --:--:--</div>
+      <div class="csub" id="m-met-sub">Since team formed</div>
+    </div>
+    <div class="cell">
+      <div class="clbl"><span>UTC</span><span class="badge-slot" data-panel="clocks"></span></div>
+      <div class="cval" id="m-utc">--:--:--</div>
+      <div class="csub" id="m-utc-date">-</div>
+    </div>
+    <div class="cell">
+      <div class="clbl"><span>Local</span><span class="badge-slot" data-panel="clocks"></span></div>
+      <div class="cval cyan" id="m-local">--:--:--</div>
+      <div class="csub" id="m-local-date">-</div>
+    </div>
+    <div class="cell">
+      <div class="clbl"><span>Crew</span><span class="badge-slot" data-panel="roster_count"></span></div>
+      <div class="cval"><span id="m-roster">-</span> <span class="unit">on roster</span></div>
+      <div class="bar"><i id="m-roster-bar"></i></div>
+      <div class="csub" id="m-roster-sub">-</div>
+    </div>
+    <div class="cell c-next">
+      <div class="clbl"><span>Next routine</span><span class="badge-slot" data-panel="next_routine"></span></div>
+      <div class="cname" id="m-next-name">-</div>
+      <div class="cval amber" id="m-next-cd">--</div>
+    </div>
+  </section>
+
+  <div class="view" id="view-ops">
+  <section class="card tl" aria-label="Routine schedule">
+    <div class="sec-row">
+      <h2 class="sec">Routine Schedule</h2>
+      <div class="meta"><span class="badge-slot" data-panel="routines"></span></div>
+    </div>
+    <div class="tl-body">
+      <div class="nextbox">
+        <div class="nb-lbl">Next to fire</div>
+        <div class="nb-name" id="nb-name">-</div>
+        <div class="nb-when" id="nb-when">-</div>
+        <div class="digits">
+          <div><b id="d-d">--</b><span>Days</span></div>
+          <div><b id="d-h">--</b><span>Hrs</span></div>
+          <div><b id="d-m">--</b><span>Min</span></div>
+          <div><b id="d-s">--</b><span>Sec</span></div>
+        </div>
+        <div class="nb-foot" id="nb-foot">-</div>
+      </div>
+      <div class="lanes" id="lanes"></div>
+    </div>
+  </section>
+
+  <main class="lower">
+    <section class="card roster" aria-label="Crew roster">
+      <div class="sec-row">
+        <h2 class="sec">Crew Roster</h2>
+        <div class="meta"><span class="badge-slot" data-panel="roster"></span></div>
+      </div>
+      <div class="crew" id="crew"></div>
+    </section>
+
+    <div class="rcol">
+      <section class="card deploys" aria-label="Deploys">
+        <div class="sec-row">
+          <h2 class="sec">Deploys</h2>
+          <div class="meta"><span class="badge-slot" data-panel="deploys"></span></div>
+        </div>
+        <div class="dstats" id="dstats"></div>
+        <div class="dlist" id="dlist"></div>
+      </section>
+
+      <section class="term" aria-label="Mission log">
+        <div class="term-hd">
+          <span class="lights"><i></i><i></i><i></i></span>
+          <span class="term-title">MISSION LOG // CREW OPS</span>
+          <span class="badge-slot" data-panel="log"></span>
+        </div>
+        <div class="term-body" id="term" aria-live="off"></div>
+      </section>
+    </div>
+  </main>
+  </div>
+
+  <section class="view card org" id="view-org" aria-label="Org chart" hidden>
+    <div class="sec-row">
+      <h2 class="sec">Org Chart</h2>
+      <div class="meta"><span class="org-note" id="org-note"></span><span class="badge-slot" data-panel="org"></span></div>
+    </div>
+    <div class="org-body" id="org-body">
+      <svg class="org-lines" id="org-lines" aria-hidden="true"></svg>
+      <div class="org-top" id="org-top"></div>
+      <div class="org-groups" id="org-groups"></div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span id="foot-gen">-</span>
+    <span class="legend">
+      <span class="badge b-live"><i></i>Live</span> computed in this browser
+      <span class="badge b-snap">Snapshot</span> recorded fact, dated
+      <span class="badge b-demo">Demo</span> illustrative only
+      <span class="by-foot">Mission Control by Tapwise</span>
+    </span>
+  </footer>
+</div>
+
+<noscript><p class="nojs">Mission Control needs JavaScript to read status.json.</p></noscript>
+<script src="status.fallback.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-label="Tapwise">
+  <!-- Background plate in the tapwise.tech page colour (#f7f5ef). -->
+  <rect width="1024" height="1024" fill="#f7f5ef"/>
+  <!-- Original Tapwise mark from https://tapwise.tech/assets/tapwise-mark.svg, unaltered, scaled to 640 px and centred. -->
+  <svg x="192" y="192" width="640" height="640" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="14" fill="#171717"/>
+  <path d="M18 18h28v8H36v23h-8V26H18z" fill="#fff"/>
+  <circle cx="46" cy="42" r="5" fill="#14b8a6"/>
+  <circle cx="50" cy="28" r="3" fill="#f97316"/>
+</svg>
+</svg>

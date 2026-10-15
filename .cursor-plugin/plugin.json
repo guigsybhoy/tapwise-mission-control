@@ -1,0 +1,31 @@
+{
+  "name": "mission-control",
+  "displayName": "Mission Control by Tapwise",
+  "version": "0.2.0",
+  "description": "A space mission control style dashboard of your own bot team. Roster, routine countdowns, deploys, a typing mission log and an org chart, all from one status.json, with every panel labelled LIVE, SNAPSHOT or DEMO so nothing is made up.",
+  "author": {
+    "name": "Tapwise"
+  },
+  "homepage": "https://tapwise.tech/mission-control",
+  "repository": "https://github.com/guigsybhoy/tapwise-mission-control",
+  "license": "MIT",
+  "logo": "assets/logo.png",
+  "keywords": [
+    "dashboard",
+    "mission-control",
+    "org-chart",
+    "agents",
+    "bots",
+    "routines",
+    "status",
+    "cloudflare-pages"
+  ],
+  "category": "productivity",
+  "tags": [
+    "dashboard",
+    "team",
+    "org-chart",
+    "visualisation"
+  ],
+  "skills": "./skills/"
+}

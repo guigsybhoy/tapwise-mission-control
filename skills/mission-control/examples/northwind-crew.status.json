@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-10-15T09:00:00+02:00",
+  "generated_by": "Sample data shipped with the plugin",
+  "team": {
+    "name": "Northwind Crew",
+    "subtitle": "Fictional sample team. Every name and date here is made up",
+    "timezone": "Europe/Paris",
+    "team_formed": "2026-06-01T09:00:00+02:00",
+    "team_formed_basis": "Made up for the sample."
+  },
+  "panels": {
+    "met": { "source": "DEMO", "as_of": "2026-10-15", "note": "Ticks live, but counts from a made-up team_formed date" },
+    "clocks": { "source": "LIVE", "as_of": null, "note": "Device clock, shown in UTC and the team time zone" },
+    "roster_count": { "source": "DEMO", "as_of": "2026-10-15", "note": "Count of the fictional roster" },
+    "next_routine": { "source": "DEMO", "as_of": "2026-10-15", "note": "Countdown runs live against a fictional schedule" },
+    "feed": { "source": "LIVE", "as_of": null, "note": "Load state of status.json in this browser" },
+    "roster": { "source": "DEMO", "as_of": "2026-10-15", "note": "Fictional crew" },
+    "routines": { "source": "DEMO", "as_of": "2026-10-15", "note": "Fictional routines" },
+    "deploys": { "source": "DEMO", "as_of": "2026-10-15", "note": "Fictional projects on example.com addresses" },
+    "log": { "source": "DEMO", "as_of": "2026-10-15", "note": "Fictional events" },
+    "org": { "source": "DEMO", "as_of": "2026-10-15", "note": "Fictional org chart" }
+  },
+  "roster": [
+    { "id": "atlas", "name": "Atlas", "role": "Chief of staff, the hub", "hub": true, "status": "active", "mission": "Weekly priorities review" },
+    { "id": "juno", "name": "Juno", "role": "Web and app builder", "status": "active", "mission": "Team status page v2" },
+    { "id": "pip", "name": "Pip", "role": "Research", "status": "standby", "mission": null },
+    { "id": "wren", "name": "Wren", "role": "Shared inbox triage", "status": "active", "mission": "Supplier enquiries backlog" },
+    { "id": "kit", "name": "Kit", "role": "Calendar and files", "status": "standby", "mission": null },
+    { "id": "sable", "name": "Sable", "role": "News and mentions watcher, read-only", "status": "active", "mission": "Product launch watch" },
+    { "id": "moss", "name": "Moss", "role": "Garden and allotment planner", "status": "paused", "mission": null },
+    { "id": "orla", "name": "Orla", "role": "Writing and editing", "status": "standby", "mission": null }
+  ],
+  "routines": [
+    { "id": "morning-brief", "name": "Morning briefing", "owner": "atlas", "schedule": { "kind": "daily", "time": "08:30" } },
+    { "id": "research-digest", "name": "Weekly research digest", "owner": "pip", "schedule": { "kind": "weekly", "time": "09:15", "weekdays": ["mon"] } },
+    { "id": "inbox-sweep", "name": "Inbox sweep and summary", "owner": "wren", "schedule": { "kind": "weekly", "time": "17:00", "weekdays": ["tue", "fri"] } },
+    { "id": "sowing-calendar", "name": "Seasonal sowing calendar update for the allotment", "owner": "moss", "schedule": { "kind": "weekly", "time": null, "weekdays": ["sat"] } },
+    { "id": "backup-check", "name": "Quarterly file backup check", "owner": "kit", "schedule": { "kind": "once", "date": "2027-01-11", "time": "10:00" } },
+    { "id": "domain-renewal", "name": "Domain renewal reminder", "owner": "atlas", "schedule": { "kind": "yearly", "month_day": "03-01", "time": "09:00" } }
+  ],
+  "deploys": [
+    { "id": "status-page", "name": "northwind-status", "platform": "pages", "url": "https://status.northwind.example.com", "status": "deployed", "last_deploy": "2026-10-14" },
+    { "id": "recipe-box", "name": "northwind-recipes", "platform": "pages", "url": "https://recipes.northwind.example.com", "status": "deployed", "last_deploy": "2026-09-30" },
+    { "id": "link-shortener", "name": "northwind-links", "platform": "worker", "url": null, "status": "pending", "last_deploy": null },
+    { "id": "old-landing", "name": "northwind-landing-2025", "platform": "pages", "url": null, "status": "retired", "last_deploy": "2026-07-02" }
+  ],
+  "log": [
+    { "date": "2026-06-01", "time": "09:00", "tag": "milestone", "bot": "atlas", "text": "Crew formed with three members" },
+    { "date": "2026-07-02", "time": null, "tag": "cancel", "bot": "juno", "text": "Old landing page retired" },
+    { "date": "2026-09-30", "time": "16:40", "tag": "deploy", "bot": "juno", "text": "Recipe box shipped" },
+    { "date": "2026-10-06", "time": "11:05", "tag": "info", "bot": "orla", "text": "Orla joined the crew for writing and editing" },
+    { "date": "2026-10-12", "time": null, "tag": "alert", "bot": "moss", "text": "Allotment planning paused until spring" },
+    { "date": "2026-10-14", "time": "18:20", "tag": "deploy", "bot": "juno", "text": "Status page redeployed with the new header" },
+    { "date": "2026-10-15", "time": "08:30", "tag": "build", "bot": "atlas", "text": "Mission Control dashboard generated from status.json" }
+  ],
+  "org": {
+    "root": { "id": "owner", "name": "Sam", "title": "Owner", "remit": "Sets priorities and approves anything that leaves the building" },
+    "hub": "atlas",
+    "groups": [
+      { "id": "build", "name": "Build", "members": ["juno"] },
+      { "id": "research", "name": "Research and writing", "members": ["pip", "orla"] },
+      { "id": "inbox", "name": "Inbox", "members": ["wren"] },
+      { "id": "calendar", "name": "Calendar and files", "members": ["kit"] },
+      { "id": "watch", "name": "Watchers", "members": ["sable"] },
+      { "id": "home", "name": "Home", "members": ["moss"] }
+    ],
+    "nodes": [
+      { "id": "atlas", "remit": "Routes requests, keeps the schedule and checks work before it ships", "anti_jobs": ["Building things itself", "Sending anything without approval"] },
+      { "id": "juno", "remit": "Builds and maintains small sites and tools", "anti_jobs": ["Publishing without a go-ahead", "Touching the inbox"] },
+      { "id": "pip", "remit": "Answers research questions with sources", "anti_jobs": ["Making purchases", "Contacting anyone"] },
+      { "id": "orla", "remit": "Drafts and edits copy in a plain voice", "anti_jobs": ["Posting or sending"] },
+      { "id": "wren", "remit": "Sorts the shared inbox and drafts replies", "anti_jobs": ["Sending replies on its own", "Deleting mail"] },
+      { "id": "kit", "remit": "Keeps the calendar and shared files tidy", "anti_jobs": ["Accepting invites for the owner"] },
+      { "id": "sable", "remit": "Watches news and mentions, read-only", "anti_jobs": ["Posting", "Replying", "Following accounts"] },
+      { "id": "moss", "remit": "Plans sowing and garden jobs through the year", "anti_jobs": [] }
+    ]
+  }
+}

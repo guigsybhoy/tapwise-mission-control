@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.DS_Store
+*.log
+/site/
+/demo/
+/mission-control/
+node_modules/
+LISTING.md
